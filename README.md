@@ -1,4 +1,4 @@
-# TodoMVC (React) — end-to-end tests
+# TodoMVC (React) end-to-end tests
 
 Automated UI tests for https://todomvc.com/examples/react/dist/ using **Python + pytest + Playwright**.
 
@@ -43,12 +43,12 @@ pytest --browser firefox            # or webkit; repeat the flag for several
 pytest tests/test_edit_todo.py -k escape   # one test
 ```
 
-Expected result: `42 passed, 1 xfailed`. The xfail is a real bug (todos lost on reload) — see findings.
+Expected result: `42 passed, 1 xfailed`. The xfail is a real bug (todos are lost on reload). See the findings in docs/test-cases.md.
 
 ## Reports and debugging
 
-- `reports/report.html` — self-contained HTML report, opened in any browser.
-- `reports/artifacts/<test>/` — screenshot, video and `trace.zip` for every **failed** test.
+- `reports/report.html`: self-contained HTML report, opened in any browser.
+- `reports/artifacts/<test>/`: screenshot, video and `trace.zip` for every **failed** test.
 - Replay a failure step by step: `playwright show-trace reports/artifacts/<test>/trace.zip`
 
 ## Project layout
@@ -64,8 +64,8 @@ pytest.ini              base URL, browser, report and artifact settings, markers
 
 ## Design notes
 
-- **Isolation** — each test gets a new browser context (pytest-playwright default), so no test depends on another and the suite runs in parallel safely.
-- **Stable selectors** — `data-testid` and accessible roles/names first, CSS classes only where nothing else exists.
-- **No sleeps** — every wait is a Playwright web-first assertion (`expect(...)`), which retries until timeout.
-- **Known bugs as strict xfail** — the test documents the expected behaviour; when the bug is fixed it turns red (XPASS) so someone removes the marker.
-- **Config, not code** — base URL and browser come from `pytest.ini` / CLI, so the same suite runs against a staging URL with `--base-url`.
+- **Isolation:** each test gets a new browser context (pytest-playwright default), so no test depends on another and the suite runs in parallel safely.
+- **Stable selectors:** `data-testid` and accessible roles/names first, CSS classes only where nothing else exists.
+- **No sleeps:** every wait is a Playwright web-first assertion (`expect(...)`), which retries until timeout.
+- **Known bugs as strict xfail:** the test documents the expected behaviour; when the bug is fixed it turns red (XPASS) so someone removes the marker.
+- **Config, not code:** base URL and browser come from `pytest.ini` / CLI, so the same suite runs against a staging URL with `--base-url`.

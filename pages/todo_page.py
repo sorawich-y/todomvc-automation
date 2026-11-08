@@ -76,5 +76,5 @@ class TodoPage:
 
     def expect_count_text(self, n: int) -> None:
         word = "item" if n == 1 else "items"
-        # This build prints "1 item left!" — tolerate the trailing "!" but not a wrong number or plural.
+        # This build prints "1 item left!", so tolerate the trailing "!" but not a wrong number or plural.
         expect(self.counter).to_have_text(re.compile(rf"^{n} {word} left!?$"))

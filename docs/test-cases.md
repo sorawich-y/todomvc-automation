@@ -1,4 +1,4 @@
-# Test case design — React TodoMVC
+# Test case design: React TodoMVC
 
 App under test: https://todomvc.com/examples/react/dist/
 Oracle: the [TodoMVC app spec](https://github.com/tastejs/todomvc/blob/master/app-spec.md) plus observed behaviour of this build.
@@ -46,15 +46,15 @@ Priority: **P1** = smoke (`-m smoke`, run on every commit), **P2** = regression.
 | FLT-05 | Filter | Selected link | Highlighted | P2 | `test_selected_filter_is_highlighted` |
 | FLT-06 | Filter | Complete item while on Active | Disappears from view | P2 | `test_completing_item_inside_active_filter_hides_it` |
 | FLT-07 | Routing | Browser Back | Returns to previous filter | P2 | `test_browser_back_returns_to_previous_filter` |
-| PER-01 | Persist | Reload page | Todos and state survive | P2 | `test_todos_survive_reload` — **xfail, see finding F-1** |
+| PER-01 | Persist | Reload page | Todos and state survive | P2 | `test_todos_survive_reload` (**xfail, see finding F-1**) |
 
 ## Findings from the run
 
 | ID | Finding | Severity | Evidence |
 |---|---|---|---|
-| F-1 | Todos are lost on page reload. The spec requires persistence (localStorage); this build stores nothing. | Medium | `test_persistence.py` (strict xfail — turns red the day it's fixed, so the test gets promoted) |
-| F-2 | Counter reads "1 item left**!**" — spec text is "1 item left". | Low (cosmetic) | Locator in `TodoPage.expect_count_text` tolerates it explicitly |
-| F-3 | New-todo input and edit input share `data-testid="text-input"` — ambiguous test hook. | Low (testability) | `TodoPage.new_todo_input` scopes it to the header |
+| F-1 | Todos are lost on page reload. The spec requires persistence (localStorage); this build stores nothing. | Medium | `test_persistence.py` (strict xfail: it turns red once the bug is fixed, so the marker gets removed) |
+| F-2 | Counter reads "1 item left**!**" but the spec text is "1 item left". | Low (cosmetic) | Locator in `TodoPage.expect_count_text` tolerates it explicitly |
+| F-3 | New-todo input and edit input share `data-testid="text-input"`, so the test hook is ambiguous. | Low (testability) | `TodoPage.new_todo_input` scopes it to the header |
 
 ## Not automated (manual / out of scope)
 
